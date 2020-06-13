@@ -1,0 +1,4 @@
+logs/*.txt
+.DS_Store
+firebase-debug.log
+node_modules
