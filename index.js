@@ -6,8 +6,8 @@ const fs = require('fs')
 const AWS = require('aws-sdk')
 
 const s3 = new AWS.S3({
-  accessKeyId: process.env.S3_KEY_ID,
-  secretAccessKey: process.env.S3_KEY_SEC
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  secretAccessKey: process.env.AWS_ACCESS_KEY_SECRET
 });
 
 
@@ -35,8 +35,8 @@ const main = async () => {
 
     // Setting up S3 upload parameters
     const params = {
-        Bucket: 'cc-firebase-profiler',
-        Key: `${time}.txt`, // File name you want to save as in S3
+        Bucket: process.env.AWS_S3_BUCKET,
+        Key: `${time.substr(0,10)}/${time}.txt`, // File name you want to save as in S3
         Body: fileContent
     };
 
@@ -49,5 +49,6 @@ const main = async () => {
       }
     });
 };
+
 
 schedule("*/2 * * * *", main);
